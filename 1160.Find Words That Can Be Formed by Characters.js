@@ -32,10 +32,13 @@ var countCharacters = function (words, chars) {
   var flag = "";
   for (let index = 0; index < words.length; index++) {
     flag = "";
+    let chars2=chars.split('')
     for (let i = 0; i < words[index].length; i++) {
-      if (chars.includes(words[index].charAt(i))) {
+      if (chars2.includes(words[index].charAt(i))) {
         flag += words[index].charAt(i);
-        if (flag == words[index]) {
+        const target=chars2.indexOf(words[index].charAt(i))
+        chars2.splice(target,1)
+        if (flag == words[index] && i==flag.length-1 ) {
           result += words[index].length;
         }
       }
