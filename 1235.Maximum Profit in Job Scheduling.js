@@ -66,7 +66,7 @@ var jobScheduling = function(startTime, endTime, profit) {
         
          for (let i = 0; i < sortedarray.length; i++) {
             
-            if (sortedarray[i][0]==minTime && previusValue==0) {
+            if (sortedarray[i][0]==sortedarray[j][0] && previusValue==0) {
                 
                 previusValue=sortedarray[i][1]
                 max+=sortedarray[i][2]
@@ -78,7 +78,6 @@ var jobScheduling = function(startTime, endTime, profit) {
     
             }
             if (i==sortedarray.length-1) {
-                
                 maxvalues.push(max)
                 max=0
                 previusValue=0
@@ -87,4 +86,4 @@ var jobScheduling = function(startTime, endTime, profit) {
      }
     return maxvalues
 };
-console.log(jobScheduling([1,2,3,4,6],[3,5,10,6,9],[20,20,100,70,60]));
+console.log(jobScheduling([1,2,3,3],[3,4,5,6],[50,10,40,70]));
