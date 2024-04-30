@@ -45,45 +45,39 @@ Constraints:
  * @return {number}
  */
 var jobScheduling = function(startTime, endTime, profit) {
-    const dupstart=[...startTime]
-    const dupend=[...endTime]
-
-    const minTime=dupstart.sort((a,b)=>a-b)[0]
-    const maxTime=dupend.sort((a,b)=>a-b)[endTime.length-1]
-    var sortedarray=[]
-    var previusValue=0
-    var maxvalues=[]
-    var tempValues=[]
-    var max=0
+    const jobs = [];
     
+    for (let i = 0; i < startTime.length; i++) {
+        jobs.push({ start: startTime[i], end: endTime[i], profit: profit[i] });
+    }
     
-     for (let index = 0; index < startTime.length; index++) {
-        sortedarray[index]=[startTime[index],endTime[index],profit[index]]   
-     }
-     
-     for (let j = 0; j < sortedarray.length; j++) {
+    jobs.sort((a, b) => a.end - b.end); 
+    
+    const dp = new Array(jobs.length);
+    dp[0] = jobs[0].profit;
+    
+    for (let i = 1; i < jobs.length; i++) {
+        let includedProfit = jobs[i].profit;
+        let lastCompatibleJobIndex = -1;
+        
+        for (let j = i - 1; j >= 0; j--) {
+            if (jobs[j].end <= jobs[i].start) {
+                lastCompatibleJobIndex = j;
+                break;
+            }
+        }
+        
+        if (lastCompatibleJobIndex !== -1) {
+            includedProfit += dp[lastCompatibleJobIndex];
+        }
         
         
-         for (let i = 0; i < sortedarray.length; i++) {
-            
-            if (sortedarray[i][0]==sortedarray[j][0] && previusValue==0) {
-                
-                previusValue=sortedarray[i][1]
-                max+=sortedarray[i][2]
-            }
-            if (previusValue!=0 && sortedarray[i][0]>=previusValue ) {
-                
-                previusValue=sortedarray[i][1]
-                max+=sortedarray[i][2]
+        dp[i] = Math.max(includedProfit, dp[i - 1]);
+    }
     
-            }
-            if (i==sortedarray.length-1) {
-                maxvalues.push(max)
-                max=0
-                previusValue=0
-            }  
-         }
-     }
-    return maxvalues
+    return dp[jobs.length - 1];
 };
-console.log(jobScheduling([1,2,3,3],[3,4,5,6],[50,10,40,70]));
+
+console.log(jobScheduling([1,2,3,3],[3,4,5,6],[50,10,40,70])); 
+console.log(jobScheduling([1,2,3,4,6],[3,5,10,6,9],[20,20,100,70,60])); 
+console.log(jobScheduling([1,1,1],[2,3,4],[5,6,4])); 
