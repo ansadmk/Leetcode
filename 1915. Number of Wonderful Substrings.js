@@ -48,7 +48,7 @@ Constraints:
 
     1 <= word.length <= 105
     word consists of lowercase English letters from 'a' to 'j'.
-
+   
 
 */
 /**
