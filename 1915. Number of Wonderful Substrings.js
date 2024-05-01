@@ -56,5 +56,11 @@ Constraints:
  * @return {number}
  */
 var wonderfulSubstrings = function(word) {
-    
+    for (let index = 0; index < word.length; index++) {
+        for (let j = 0; j < word.length; j++) {
+              
+            
+        }
+        
+    }
 };
