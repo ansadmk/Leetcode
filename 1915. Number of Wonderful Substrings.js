@@ -56,11 +56,20 @@ Constraints:
  * @return {number}
  */
 var wonderfulSubstrings = function(word) {
+    const arr=[]
     for (let index = 0; index < word.length; index++) {
-        for (let j = 0; j < word.length; j++) {
-              
-            
+        for (let j = index; j < word.length; j++) {
+              if(j==index){
+                arr.push(word.charAt(j))
+              }
+            if (word.charAt(index+1)==word.charAt(index+2)) {
+                arr.push(word.charAt(index+1)+word.charAt(index+2)) 
+                arr.push(word.charAt(index+1)+word.charAt(index+2)+word.charAt(index+3)) 
+
+            }
         }
         
     }
+    return arr
 };
+console.log(wonderfulSubstrings("aabb"));
